@@ -1,5 +1,7 @@
 package com.webperside.courseerpbackend.controller;
 
+import com.webperside.courseerpbackend.models.base.BaseResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,9 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/test")
-    public String test() {
-
-        return  "Course ERP First";
+    public BaseResponse<String> test() {
+        return BaseResponse.success("Course ERP Update");
     }
+
+
 
 }
