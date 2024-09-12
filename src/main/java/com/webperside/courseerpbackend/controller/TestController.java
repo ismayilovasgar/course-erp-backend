@@ -9,7 +9,7 @@ public class TestController {
     @GetMapping("/test")
     public String test() {
 
-        return  "Course ERP";
+        return  "Course ERP 2";
     }
 
 }
