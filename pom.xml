@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.webperside</groupId>
 	<artifactId>course-erp-backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>course-erp-backend</name>
 	<description>This app is for Course ERP backend services</description>
 	<properties>
@@ -43,17 +43,17 @@
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>org.mybatis.spring.boot</groupId>-->
-			<!--<artifactId>mybatis-spring-boot-starter</artifactId>-->
-			<!--<version>${org.mybatis.spring.boot.mybatis-spring-boot-starter.version}</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>${org.mybatis.spring.boot.mybatis-spring-boot-starter.version}</version>
+		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>org.postgresql</groupId>-->
-			<!--<artifactId>postgresql</artifactId>-->
-			<!--<scope>runtime</scope>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
 		<dependency>
