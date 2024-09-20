@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class IsDeletedEntity {
 

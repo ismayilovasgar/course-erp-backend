@@ -2,13 +2,14 @@ package com.webperside.courseerpbackend.models.mybatis.user;
 
 import com.webperside.courseerpbackend.models.enums.user.UserStatus;
 import com.webperside.courseerpbackend.models.mybatis.base.BaseEntity;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User  extends BaseEntity {
