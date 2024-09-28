@@ -17,22 +17,22 @@ public class CourseErpBackendApplication  implements CommandLineRunner {
 		SpringApplication.run(CourseErpBackendApplication.class, args);
 	}
 
-	@Autowired
-	UserRepository userRepository;
+//	@Autowired
+//	UserRepository userRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
-		User user= User.builder()
-				.name("asgar")
-				.surname("ismayilov new ")
-				.status(UserStatus.ACTIVE)
-				.roleId(1L)
-				.email("asgar@gmail.com")
-				.phoneNumber("5685604")
-				.password("1234")
-				.build();
-
-		userRepository.insert(user);
-		System.out.printf("%s id user inserted%n",user.getId());
+//		User user= User.builder()
+//				.name("asgar")
+//				.surname("ismayilov new ")
+//				.status(UserStatus.ACTIVE)
+//				.roleId(1L)
+//				.email("asgar@gmail.com")
+//				.phoneNumber("5685604")
+//				.password("1234")
+//				.build();
+//
+//		userRepository.insert(user);
+//		System.out.printf("%s id user inserted%n",user.getId());
 	}
 }

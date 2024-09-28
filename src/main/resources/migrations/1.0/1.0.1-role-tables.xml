@@ -16,25 +16,89 @@
             <column name="owner_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
+            <column name="description" type="VARCHAR(255)"/>
             <column name="is_deleted" type="BOOLEAN" defaultValue="false">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addForeignKeyConstraint  baseColumnNames="person_id"
-                                  baseTableName="address"
-                                  constraintName="fk_address_person"
-                                  deferrable="true"
-                                  initiallyDeferred="true"
-                                  onDelete="CASCADE"
-                                  onUpdate="RESTRICT"
+        <addForeignKeyConstraint  baseColumnNames="owner_id"
+                                  baseTableName="roles"
+                                  constraintName="fk_roles_owner_id"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="NO ACTION"
+                                  onUpdate="NO ACTION"
                                   referencedColumnNames="id"
-                                  referencedTableCatalogName="cat"
-                                  referencedTableName="person"
-                                  referencedTableSchemaName="public"
+                                  referencedTableName="users"
                                   validate="true"/>
 
+        <createTable tableName="role_objects">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="is_deleted" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
 
+        <createTable tableName="role_accesses">
+            <column name="role_id" type="BIGINT" autoIncrement="true"/>
+            <column name="role_object_id" type="BIGINT" autoIncrement="true"/>
 
+            <column name="read" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="edit" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delete" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint  baseColumnNames="role_id"
+                                  baseTableName="role_accesses"
+                                  constraintName="fk_role_accesses_role_id"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="NO ACTION"
+                                  onUpdate="NO ACTION"
+                                  referencedColumnNames="id"
+                                  referencedTableName="roles"
+                                  validate="true"/>
+        <addForeignKeyConstraint  baseColumnNames="role_object_id"
+                                  baseTableName="role_accesses"
+                                  constraintName="fk_role_accesses_role_object_id"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="NO ACTION"
+                                  onUpdate="NO ACTION"
+                                  referencedColumnNames="id"
+                                  referencedTableName="role_objects"
+                                  validate="true"/>
+
+    </changeSet>
+    
+    <changeSet id="user-role-foreign-key" author="asgarismayilov">
+        <addForeignKeyConstraint  baseColumnNames="role_id"
+                                  baseTableName="users"
+                                  constraintName="fk_users_role_id"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="NO ACTION"
+                                  onUpdate="NO ACTION"
+                                  referencedColumnNames="id"
+                                  referencedTableName="roles"
+                                  validate="true"/>
     </changeSet>
 </databaseChangeLog>
