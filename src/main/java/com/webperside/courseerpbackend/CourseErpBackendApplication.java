@@ -1,5 +1,6 @@
 package com.webperside.courseerpbackend;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webperside.courseerpbackend.models.enums.user.UserStatus;
 import com.webperside.courseerpbackend.models.mybatis.user.User;
 import com.webperside.courseerpbackend.models.properties.security.SecurityProperties;
@@ -81,6 +82,9 @@ public class CourseErpBackendApplication  implements CommandLineRunner {
 
 //		read keys with @configuration annotations
 		System.out.println(securityProperties.getJwt().getAccessTokenValidityTime());
+		System.out.println(securityProperties.getJwt().getPrivateKey());
+
+//		System.out.println(new ObjectMapper().writeValueAsString(securityProperties));
 
     }
 

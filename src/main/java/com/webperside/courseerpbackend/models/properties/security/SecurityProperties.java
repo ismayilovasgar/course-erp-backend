@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Configuration
-
-//? application veya properties fayllarindaki rootkey tapmaq ucundu
-@ConfigurationProperties("security")
+@ConfigurationProperties("security") //? application veya properties fayllarindaki rootkey tapmaq ucundu
 public class SecurityProperties {
 
     JwtData jwt;
