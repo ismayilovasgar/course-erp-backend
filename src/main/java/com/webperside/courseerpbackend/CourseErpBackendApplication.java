@@ -5,6 +5,7 @@ import com.webperside.courseerpbackend.models.enums.user.UserStatus;
 import com.webperside.courseerpbackend.models.mybatis.user.User;
 import com.webperside.courseerpbackend.models.properties.security.SecurityProperties;
 import com.webperside.courseerpbackend.repository.UserRepository;
+import com.webperside.courseerpbackend.services.security.AccessTokenManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +19,8 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Base64;
 
-@RequiredArgsConstructor
 @SpringBootApplication
+@RequiredArgsConstructor
 public class CourseErpBackendApplication  implements CommandLineRunner {
 
 	public static void main(String[] args) {
@@ -56,6 +57,9 @@ public class CourseErpBackendApplication  implements CommandLineRunner {
 
 	private final SecurityProperties securityProperties;
 
+//		?AccessTokenManager-----------------------------------------------------------------------
+	private final AccessTokenManager accessTokenManager;
+
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -79,14 +83,22 @@ public class CourseErpBackendApplication  implements CommandLineRunner {
 		System.out.println(privateKey);
 */
 
-
 //		read keys with @configuration annotations
-		System.out.println(securityProperties.getJwt().getAccessTokenValidityTime());
-		System.out.println(securityProperties.getJwt().getPrivateKey());
+//		System.out.println(securityProperties.getJwt().getAccessTokenValidityTime());
+//		System.out.println(securityProperties.getJwt().getPrivateKey());
 
+//		! Exception - sonra baxarsan
 //		System.out.println(new ObjectMapper().writeValueAsString(securityProperties));
 
-    }
+
+//		?Generate AccessTokenManager-----------------------------------------------------------------------
+		User user = User.builder().email("cukur54@gmail.com").build();
+		user.setId(1L);
+
+		System.out.println(accessTokenManager.generate(user));
+
+
+	}
 
 	private static String convertToPrivateKey(String key) {
 		StringBuilder result = new StringBuilder();

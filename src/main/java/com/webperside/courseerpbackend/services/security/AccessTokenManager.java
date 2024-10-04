@@ -10,11 +10,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@CommonsLog
+
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class AccessTokenManager implements TokenGenerator<User> {
 
@@ -36,7 +38,7 @@ public class AccessTokenManager implements TokenGenerator<User> {
                 .setSubject(String.valueOf(obj.getId()))
                 .setIssuedAt(now)
                 .setExpiration(expiration)
-                .setClaims(claims)
+                .addClaims(claims)
                 .signWith(PublicPrivateKeyUtils.getPrivateKey(), SignatureAlgorithm.RS256)
                 .compact();
     }
