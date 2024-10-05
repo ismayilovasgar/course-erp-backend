@@ -1,5 +1,6 @@
 package com.webperside.courseerpbackend.services.security;
 
+import com.webperside.courseerpbackend.models.dto.RefreshTokenDto;
 import com.webperside.courseerpbackend.models.mybatis.user.User;
 import com.webperside.courseerpbackend.models.properties.security.SecurityProperties;
 import com.webperside.courseerpbackend.services.base.TokenGenerator;
@@ -8,34 +9,36 @@ import com.webperside.courseerpbackend.utils.PublicPrivateKeyUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AccessTokenManager implements TokenGenerator<User>, TokenReader<Claims> {
+public class RefreshTokenManager implements TokenGenerator<RefreshTokenDto>, TokenReader<Claims> {
 
     private final SecurityProperties securityProperties;
 
-    // RSA
     @Override
-    public String generate(User obj) {
+    public String generate(RefreshTokenDto obj) {
+
+        final User user = obj.getUser();
 
         Claims claims = Jwts.claims();
-        claims.put("email", obj.getEmail());
+        claims.put("email", user.getEmail());
+        claims.put("type", "REFRESH_TOKEN");
         //
 
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + securityProperties.getJwt().getAccessTokenValidityTime());
+        Date expiration = new Date(now.getTime() + securityProperties.getJwt().getRefreshTokenValidityTime(obj.isRememberMe()));
 
 
         return Jwts.builder()
-                .setSubject(String.valueOf(obj.getId()))
+                .setSubject(String.valueOf(user.getId()))
                 .setIssuedAt(now)
                 .setExpiration(expiration)
                 .addClaims(claims)
@@ -48,9 +51,9 @@ public class AccessTokenManager implements TokenGenerator<User>, TokenReader<Cla
         return Jwts.parserBuilder()
                 .setSigningKey(PublicPrivateKeyUtils.getPublicKey())
                 .build()
+//              .parseClaimsJwt(token)
                 .parseClaimsJws(token)
                 .getBody();
-//                .parseClaimsJwt(token)
 
     }
 }

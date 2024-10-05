@@ -21,11 +21,11 @@ import java.util.Base64;
 
 @SpringBootApplication
 @RequiredArgsConstructor
-public class CourseErpBackendApplication  implements CommandLineRunner {
+public class CourseErpBackendApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CourseErpBackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CourseErpBackendApplication.class, args);
+    }
 
 //	@Autowired
 //	UserRepository userRepository;
@@ -55,14 +55,14 @@ public class CourseErpBackendApplication  implements CommandLineRunner {
 //	@Value("${security.jwt.private-key}")
 //	private String privateKey;
 
-	private final SecurityProperties securityProperties;
+    private final SecurityProperties securityProperties;
 
-//		?AccessTokenManager-----------------------------------------------------------------------
-	private final AccessTokenManager accessTokenManager;
+    //		?AccessTokenManager-----------------------------------------------------------------------
+    private final AccessTokenManager accessTokenManager;
 
 
-	@Override
-	public void run(String... args) throws Exception {
+    @Override
+    public void run(String... args) throws Exception {
 /*
 		?Generate public and private key
 		KeyPairGenerator keyGenerator = KeyPairGenerator.getInstance("RSA");
@@ -92,27 +92,31 @@ public class CourseErpBackendApplication  implements CommandLineRunner {
 
 
 //		?Generate AccessTokenManager-----------------------------------------------------------------------
-		User user = User.builder().email("cukur54@gmail.com").build();
-		user.setId(1L);
+        User user = User.builder().email("cukur54@gmail.com").build();
+        user.setId(1L);
+//		System.out.println(accessTokenManager.generate(user));
 
-		System.out.println(accessTokenManager.generate(user));
+//		?Read AccessTokenManager-----------------------------------------------------------------------
+        final String token = accessTokenManager.generate(user);
+        System.out.println(token);
+//        System.out.println(accessTokenManager.read(token));
+//        System.out.println(accessTokenManager.read(token).get("email",String.class));
 
+    }
 
-	}
+    private static String convertToPrivateKey(String key) {
+        StringBuilder result = new StringBuilder();
+        result.append("-----BEGIN PRIVATE KEY-----\n");
+        result.append(key);
+        result.append("\n-----END PRIVATE KEY-----");
+        return result.toString();
+    }
 
-	private static String convertToPrivateKey(String key) {
-		StringBuilder result = new StringBuilder();
-		result.append("-----BEGIN PRIVATE KEY-----\n");
-		result.append(key);
-		result.append("\n-----END PRIVATE KEY-----");
-		return result.toString();
-	}
-
-	private static String convertToPublicKey(String key) {
-		StringBuilder result = new StringBuilder();
-		result.append("-----BEGIN PUBLIC KEY-----\n");
-		result.append(key);
-		result.append("\n-----END PUBLIC KEY-----");
-		return result.toString();
-	}
+    private static String convertToPublicKey(String key) {
+        StringBuilder result = new StringBuilder();
+        result.append("-----BEGIN PUBLIC KEY-----\n");
+        result.append(key);
+        result.append("\n-----END PUBLIC KEY-----");
+        return result.toString();
+    }
 }

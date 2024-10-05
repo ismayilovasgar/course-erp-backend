@@ -4,6 +4,11 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:migrations/changelog-master.xml
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
 
 
 mybatis:
